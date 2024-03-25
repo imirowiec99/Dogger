@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Elomelo</h1>
+<!--<div class="images" th:each="image : ${images}">-->
+<!--    <img class='img-thumbnail' th:src="'data:image/jpeg;base64,' + ${imageUtil.getImageData(image.content)}" />-->
+<!--</div>-->
+<div class="images" th:each="name : ${names}">
+    <img th:src="@{'photos/' + ${name}}" />
+</div>
+</body>
+</html>

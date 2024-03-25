@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Rejestracja</title>
+</head>
+<body>
+<div class="register-container">
+    <div class="register-form">
+        <form th:action="@{/register}" method="post" enctype="multipart/form-data" th:object="${dogDto}">
+            <h2>Rejestracja</h2>
+            <div class="input-box">
+                <label for="name">Name: </label>
+                <input type="text" id="name" name="name" placeholder="Name" th:field="${dogDto.name}" required/>
+            </div>
+            <div class="input-box">
+                <label for="lastname">Lastname: </label>
+                <input type="text" id="lastname" name="lastname" placeholder="Lastname" th:field="${dogDto.lastname}" required/>
+            </div>
+            <div class="input-box">
+                <label for="sport">Sport:</label>
+                <input type="checkbox" id="sport" name="interests" value="sport" th:field="${dogDto.interests}"/><br/>
+
+                <label for="muzyka">Muzyka:</label>
+                <input type="checkbox" id="muzyka" name="interests" value="muzyka" th:field="${dogDto.interests}"/><br/>
+
+                <label for="podroze">Podróże:</label>
+                <input type="checkbox" id="podroze" name="interests" value="podroze" th:field="${dogDto.interests}"/><br/>
+
+                <label for="czytanie">Czytanie:</label>
+                <input type="checkbox" id="czytanie" name="interests" value="czytanie" th:field="${dogDto.interests}"/><br/>
+
+            </div>
+                <div id="upload-container">
+                    <div class="file-input-container">
+                        <label for="image">Zdjęcia:</label>
+                        <input type="file" id="image" name="images">
+                    </div>
+                </div>
+                <button type="button" onclick="addFileInput()">Dodaj kolejne zdjęcia</button>
+            <div class="button">
+                <input type="submit" class="btn" value="Rejestruj">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function addFileInput() {
+        const uploadContainer = document.getElementById("upload-container");
+        const fileInputContainer = document.createElement("div");
+        fileInputContainer.classList.add("file-input-container");
+        const label = document.createElement("label");
+        label.textContent = "Zdjęcia:";
+        const input = document.createElement("input");
+        input.type = "file";
+        input.classList.add("images");
+        input.name = "images";
+        input.multiple = true;
+        fileInputContainer.appendChild(label);
+        fileInputContainer.appendChild(input);
+        uploadContainer.appendChild(fileInputContainer);
+    }
+</script>
+
+</body>
+</html>
