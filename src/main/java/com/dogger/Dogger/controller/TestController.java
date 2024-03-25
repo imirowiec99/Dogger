@@ -1,31 +1,23 @@
 package com.dogger.Dogger.controller;
 
+import com.dogger.Dogger.mapper.PhotoToEntity;
 import com.dogger.Dogger.dto.DogDto;
-import com.dogger.Dogger.model.Dog;
-import com.dogger.Dogger.model.Interest;
+import com.dogger.Dogger.dto.PhotoDto;
 import com.dogger.Dogger.model.Photo;
 import com.dogger.Dogger.service.DogService;
 import com.dogger.Dogger.service.LikeService;
 import com.dogger.Dogger.service.PhotoService;
 import com.dogger.Dogger.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.Multipart;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class TestController {
@@ -54,7 +46,7 @@ public class TestController {
         long index = dogService.getTopDogIndex();
         dogDto.setId(index+1);
         dogDto.setAccount(size+1);
-        List<MultipartFile> photos = new ArrayList<>();
+        List<PhotoDto> photos = new ArrayList<>();
 
         for (MultipartFile image : images){
             if (!image.isEmpty()){
@@ -62,14 +54,17 @@ public class TestController {
                 try {
                     String filename = image.getOriginalFilename();
                     String name = String.format("image_%d.jpeg", amount);
-                    String path = new File("src/main/resources/static/photos").getAbsolutePath() + "/" + name;
+                    String path = new File("src/main/webapp/photos").getAbsolutePath() + "/" + name;
 
-                    Photo photo = new Photo();
-                    photo.setName(name);
-                    photo.setAccount(size + 1);
-                    photo.setFilename(filename);
-                    photo.setLink(path);
-                    photoService.savePhoto(photo);
+                    PhotoDto photoDto = new PhotoDto();
+                    photoDto.setName(name);
+                    photoDto.setAccount(size + 1);
+                    photoDto.setFilename(filename);
+                    photoDto.setLink(path);
+                    photos.add(photoDto);
+
+//                    Photo photo = PhotoToEntity.photoDtoToEntity(photoDto);
+//                    photoService.savePhoto(photo);
 
                     image.transferTo(new File(path));
 

@@ -4,17 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "interest")
+@Table(name = "skill")
 @Setter
 @Getter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Interest {
+public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "accountinterest")
+    @Column(name = "accountskill")
     private int account;
     private String interest;
 

@@ -25,13 +25,12 @@ public class Dog {
     private String race;
     private int age;
     private int weight;
-    private String profile;
     private String city;
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="accountinterest", referencedColumnName = "account")
-    private List<Interest> interests;
+    private List<Skill> skills;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="accountphoto", referencedColumnName = "account")

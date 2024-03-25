@@ -10,36 +10,68 @@
 <div class="register-container">
     <div class="register-form">
         <form th:action="@{/register}" method="post" enctype="multipart/form-data" th:object="${dogDto}">
-            <h2>Rejestracja</h2>
-            <div class="input-box">
+            <h2>Create profile</h2>
+            <div class="name">
                 <label for="name">Name: </label>
                 <input type="text" id="name" name="name" placeholder="Name" th:field="${dogDto.name}" required/>
             </div>
-            <div class="input-box">
-                <label for="lastname">Lastname: </label>
-                <input type="text" id="lastname" name="lastname" placeholder="Lastname" th:field="${dogDto.lastname}" required/>
+            <div class="sex">
+            <label for="male">Male:</label>
+            <input type="radio" id="male" name="sex" value="Male" th:field="${dogDto.sex}"/><br/>
+            <label for="female">Female:</label>
+            <input type="radio" id="female" name="sex" value="Female" th:field="${dogDto.sex}"/><br/>
+        </div>
+            <div class="age">
+                <label for="age">Age: </label>
+                <input type="number" id="age" th:field="${dogDto.age}" />
             </div>
-            <div class="input-box">
-                <label for="sport">Sport:</label>
-                <input type="checkbox" id="sport" name="interests" value="sport" th:field="${dogDto.interests}"/><br/>
-
-                <label for="muzyka">Muzyka:</label>
-                <input type="checkbox" id="muzyka" name="interests" value="muzyka" th:field="${dogDto.interests}"/><br/>
-
-                <label for="podroze">Podróże:</label>
-                <input type="checkbox" id="podroze" name="interests" value="podroze" th:field="${dogDto.interests}"/><br/>
-
-                <label for="czytanie">Czytanie:</label>
-                <input type="checkbox" id="czytanie" name="interests" value="czytanie" th:field="${dogDto.interests}"/><br/>
+            <div class="weight">
+                <label for="weight">Weight: </label>
+                <input type="number" id="weight" th:field="${dogDto.weight}" />
+            </div>
+            <div class="city">
+                <label for="city">City: </label>
+                <input type="text" id="city" th:field="${dogDto.city}" />
+            </div>
+            <div class="skills">
+                <label for="agility">Agility:</label>
+                <input type="checkbox" id="agility" name="interests" value="Agility" th:field="${dogDto.interests}"/><br/>
+                <label for="frisbee">Frisbee:</label>
+                <input type="checkbox" id="frisbee" name="interests" value="Frisbee" th:field="${dogDto.interests}"/><br/>
+                <label for="ball">Ball:</label>
+                <input type="checkbox" id="ball" name="interests" value="Ball" th:field="${dogDto.interests}"/><br/>
+                <label for="jumping">Jumping:</label>
+                <input type="checkbox" id="jumping" name="interests" value="Jumping" th:field="${dogDto.interests}"/><br/>
+                <label for="swimming">Swimming:</label>
+                <input type="checkbox" id="swimming" name="interests" value="Swimming" th:field="${dogDto.interests}"/><br/>
+                <label for="fastrunning">Fast running:</label>
+                <input type="checkbox" id="fastrunning" name="interests" value="Fast running" th:field="${dogDto.interests}"/><br/>
+                <label for="aport">Aport:</label>
+                <input type="checkbox" id="aport" name="interests" value="Aport" th:field="${dogDto.interests}"/><br/>
+                <label for="clicker">Clicker:</label>
+                <input type="checkbox" id="clicker" name="interests" value="Clicker" th:field="${dogDto.interests}"/><br/>
+                <label for="chasinganimals">Chasing animals:</label>
+                <input type="checkbox" id="chasinganimals" name="interests" value="Chasing animals" th:field="${dogDto.interests}"/><br/>
+                <label for="tag">Tag:</label>
+                <input type="checkbox" id="tag" name="interests" value="Tag" th:field="${dogDto.interests}"/><br/>
+                <label for="guarding">Guarding:</label>
+                <input type="checkbox" id="guarding" name="interests" value="Guarding" th:field="${dogDto.interests}"/><br/>
+                <label for="barking">Barking:</label>
+                <input type="checkbox" id="barking" name="interests" value="Barking" th:field="${dogDto.interests}"/><br/>
 
             </div>
-                <div id="upload-container">
-                    <div class="file-input-container">
-                        <label for="image">Zdjęcia:</label>
-                        <input type="file" id="image" name="images">
-                    </div>
+            <div class="description">
+                <label for="description">About me: </label>
+                <input type="text" id="description" th:field="${dogDto.description}" />
+            </div>
+            <br>
+            <div id="upload-container">
+                <div class="file-input-container">
+                    <label for="image">Zdjęcia:</label>
+                    <input type="file" id="image" name="images">
                 </div>
-                <button type="button" onclick="addFileInput()">Dodaj kolejne zdjęcia</button>
+            </div>
+                <button type="button" onclick="addFileInput()">Add another photo</button>
             <div class="button">
                 <input type="submit" class="btn" value="Rejestruj">
             </div>
