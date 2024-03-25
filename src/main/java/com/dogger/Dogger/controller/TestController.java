@@ -68,7 +68,6 @@ public class TestController {
                     photo.setName(name);
                     photo.setAccount(size + 1);
                     photo.setFilename(filename);
-                    photo.setContent(image.getBytes());
                     photo.setLink(path);
                     photoService.savePhoto(photo);
 

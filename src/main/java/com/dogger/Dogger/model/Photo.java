@@ -17,8 +17,6 @@ public class Photo {
     private long id;
     @Column(name = "accountphoto")
     private int account;
-    @Lob
-    byte[] content;
     private String name;
     private String filename;
     private String link;
