@@ -1,12 +1,16 @@
 package com.dogger.Dogger.controller;
 
+import com.dogger.Dogger.dto.*;
+import com.dogger.Dogger.mapper.DogToEntity;
 import com.dogger.Dogger.mapper.PhotoToEntity;
-import com.dogger.Dogger.dto.DogDto;
-import com.dogger.Dogger.dto.PhotoDto;
+import com.dogger.Dogger.mapper.SkillToEntity;
+import com.dogger.Dogger.model.Dog;
 import com.dogger.Dogger.model.Photo;
+import com.dogger.Dogger.model.Skill;
 import com.dogger.Dogger.service.DogService;
 import com.dogger.Dogger.service.LikeService;
 import com.dogger.Dogger.service.PhotoService;
+import com.dogger.Dogger.service.SkillService;
 import com.dogger.Dogger.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,29 +28,46 @@ public class TestController {
     private final LikeService likeService;
     private final DogService dogService;
     private final PhotoService photoService;
+    private final SkillService skillService;
 
     @Autowired
-    public TestController(LikeService likeService, DogService dogService, PhotoService photoService) {
+    public TestController(LikeService likeService, DogService dogService, PhotoService photoService, SkillService skillService) {
         this.likeService = likeService;
         this.dogService = dogService;
         this.photoService = photoService;
+        this.skillService = skillService;
     }
 
     @GetMapping("/register")
     public String createAccountForm(Model model){
-        model.addAttribute("dogDto", new DogDto());
+        model.addAttribute("profileDto", new ProfileDto());
+//        model.addAttribute("dogDto", new DogDto());
         return "register";
     }
 
 
     @PostMapping("/register")
-    public String createAccountFormSend(@ModelAttribute DogDto dogDto,
-                                        @RequestParam("images") MultipartFile[] images) throws IOException {
+    public String createAccountFormSend(@ModelAttribute ProfileDto profileDto,
+                                        @RequestParam("images") MultipartFile[] images,
+                                        @RequestParam("skills")String[] skills) throws IOException {
+
         int size = dogService.getAllDogs().size();
         long index = dogService.getTopDogIndex();
-        dogDto.setId(index+1);
-        dogDto.setAccount(size+1);
+//        profileDto.getDogDto().setId(index+1);
+        profileDto.getDogDto().setAccount(size+1);
         List<PhotoDto> photos = new ArrayList<>();
+
+
+        List<SkillDto> skillDtos = new ArrayList<>();
+        for (String skill : skills){
+            SkillDto skillDto = new SkillDto();
+            skillDto.setAccount(size + 1);
+            skillDto.setSkill(skill);
+            skillDtos.add(skillDto);
+
+            Skill skill1 = SkillToEntity.skillDtoToEntity(skillDto);
+            skillService.saveSkill(skill1);
+        }
 
         for (MultipartFile image : images){
             if (!image.isEmpty()){
@@ -63,8 +84,8 @@ public class TestController {
                     photoDto.setLink(path);
                     photos.add(photoDto);
 
-//                    Photo photo = PhotoToEntity.photoDtoToEntity(photoDto);
-//                    photoService.savePhoto(photo);
+                    Photo photo = PhotoToEntity.photoDtoToEntity(photoDto);
+                    photoService.savePhoto(photo);
 
                     image.transferTo(new File(path));
 
@@ -74,12 +95,17 @@ public class TestController {
                 }
             }
         }
-        dogDto.setPhotos(photos);
-        System.out.println(dogDto);
+        profileDto.getDogDto().setSkills(skillDtos);
+        profileDto.getDogDto().setPhotos(photos);
+        System.out.println(profileDto.getDogDto());
+
+        Dog dog = DogToEntity.dogDtoToEntity(profileDto.getDogDto());
+        System.out.println(dog);
+        dogService.saveDog(dog);
+
+
         return "redirect:/";
     }
-
-    public void saveFile(){}
 
 
     @GetMapping("/")
@@ -90,7 +116,6 @@ public class TestController {
             names.add(photo.getName());
         }
         System.out.println(names);
-
 
 
         model.addAttribute("names", names);

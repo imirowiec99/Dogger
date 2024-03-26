@@ -15,13 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 public class Dog {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "account")
     private int account;
     private String name;
-    @Enumerated(EnumType.STRING)
-    private Sex sex;
+    private String sex;
     private String race;
     private int age;
     private int weight;

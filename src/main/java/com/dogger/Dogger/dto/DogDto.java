@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DogDto {
-    private long id;
     private int account;
     private String name;
     private String race;
@@ -22,14 +21,13 @@ public class DogDto {
     private int age;
     private int weight;
     private String city;
-    private List<String> interests;
+    private List<SkillDto> skills;
     private List<PhotoDto> photos;
 
     @Override
     public String toString() {
         return "DogDto{" +
-                "id=" + id +
-                ", account=" + account +
+                "account=" + account +
                 ", name='" + name + '\'' +
                 ", race='" + race + '\'' +
                 ", sex='" + sex + '\'' +
@@ -37,7 +35,7 @@ public class DogDto {
                 ", age=" + age +
                 ", weight=" + weight +
                 ", city='" + city + '\'' +
-                ", interests=" + interests +
+                ", skills=" + skills +
                 ", photos=" + photos +
                 '}';
     }

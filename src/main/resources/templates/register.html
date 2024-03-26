@@ -9,60 +9,84 @@
 <body>
 <div class="register-container">
     <div class="register-form">
-        <form th:action="@{/register}" method="post" enctype="multipart/form-data" th:object="${dogDto}">
+        <form th:action="@{/register}" method="post" enctype="multipart/form-data" th:object="${profileDto}">
             <h2>Create profile</h2>
             <div class="name">
                 <label for="name">Name: </label>
-                <input type="text" id="name" name="name" placeholder="Name" th:field="${dogDto.name}" required/>
+                <input type="text" id="name" name="name" placeholder="Name" th:field="${profileDto.dogDto.name}" required/>
             </div>
             <div class="sex">
-            <label for="male">Male:</label>
-            <input type="radio" id="male" name="sex" value="Male" th:field="${dogDto.sex}"/><br/>
-            <label for="female">Female:</label>
-            <input type="radio" id="female" name="sex" value="Female" th:field="${dogDto.sex}"/><br/>
-        </div>
+                <label for="male">Male:</label>
+                <input type="radio" id="male" name="sex" value="male" th:field="${profileDto.dogDto.sex}"/><br/>
+                <label for="female">Female:</label>
+                <input type="radio" id="female" name="sex" value="female" th:field="${profileDto.dogDto.sex}"/><br/>
+            </div>
+            <div class="race">
+                <label for="race">Choose a breed of the dog:</label>
+                <select name="race" id="race" th:field="${profileDto.dogDto.race}" onchange="raceFormOptions()" >
+                    <option value="Akita">Akita</option>
+                    <option value="Alaskan malamute">Alaskan malamute</option>
+                    <option value="Beagle">Beagle</option>
+                    <option value="Boxer">Boxer</option>
+                    <option value="Bulldog">Bulldog</option>
+                    <option value="Cooker Spaniel">Cooker Spaniel</option>
+                    <option value="Corgi">Corgi</option>
+                    <option value="Doberman">Doberman</option>
+                    <option value="Golden Retriever">Golden Retriever</option>
+                    <option value="Maltese">Maltese</option>
+                    <option value="Poodle">Poodle</option>
+                    <option value="Rottweiler">Rottweiler</option>
+                    <option value="Sheepdog">Sheepdog</option>
+                    <option value="Shih Tzu">Shih Tzu</option>
+                    <option value="Siberian Husky">Siberian Husky</option>
+                    <option value="Other" id="other">Other</option>
+                </select>
+                <br>
+                <label id="anotherracelabel" for="anotherrace" style="display: none">Another race: </label>
+                <input type="text" id="anotherrace" style="display: none" onchange="updateSelectOptions()"/>
+            </div>
             <div class="age">
                 <label for="age">Age: </label>
-                <input type="number" id="age" th:field="${dogDto.age}" />
+                <input type="number" id="age" min="0" th:field="${profileDto.dogDto.age}" onchange="validateAge()"/>
             </div>
             <div class="weight">
                 <label for="weight">Weight: </label>
-                <input type="number" id="weight" th:field="${dogDto.weight}" />
+                <input type="number" id="weight" min="0" th:field="${profileDto.dogDto.weight}" onchange="validateWeight()"/>
             </div>
             <div class="city">
                 <label for="city">City: </label>
-                <input type="text" id="city" th:field="${dogDto.city}" />
+                <input type="text" id="city" th:field="${profileDto.dogDto.city}" />
             </div>
             <div class="skills">
                 <label for="agility">Agility:</label>
-                <input type="checkbox" id="agility" name="interests" value="Agility" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="agility" name="skills" value="Agility" /><br/>
                 <label for="frisbee">Frisbee:</label>
-                <input type="checkbox" id="frisbee" name="interests" value="Frisbee" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="frisbee" name="skills" value="Frisbee" /><br/>
                 <label for="ball">Ball:</label>
-                <input type="checkbox" id="ball" name="interests" value="Ball" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="ball" name="skills" value="Ball" /><br/>
                 <label for="jumping">Jumping:</label>
-                <input type="checkbox" id="jumping" name="interests" value="Jumping" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="jumping" name="skills" value="Jumping" /><br/>
                 <label for="swimming">Swimming:</label>
-                <input type="checkbox" id="swimming" name="interests" value="Swimming" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="swimming" name="skills" value="Swimming" /><br/>
                 <label for="fastrunning">Fast running:</label>
-                <input type="checkbox" id="fastrunning" name="interests" value="Fast running" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="fastrunning" name="skills" value="Fast running" /><br/>
                 <label for="aport">Aport:</label>
-                <input type="checkbox" id="aport" name="interests" value="Aport" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="aport" name="skills" value="Aport" /><br/>
                 <label for="clicker">Clicker:</label>
-                <input type="checkbox" id="clicker" name="interests" value="Clicker" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="clicker" name="skills" value="Clicker" /><br/>
                 <label for="chasinganimals">Chasing animals:</label>
-                <input type="checkbox" id="chasinganimals" name="interests" value="Chasing animals" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="chasinganimals" name="skills" value="Chasing animals" /><br/>
                 <label for="tag">Tag:</label>
-                <input type="checkbox" id="tag" name="interests" value="Tag" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="tag" name="skills" value="Tag" /><br/>
                 <label for="guarding">Guarding:</label>
-                <input type="checkbox" id="guarding" name="interests" value="Guarding" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="guarding" name="skills" value="Guarding" /><br/>
                 <label for="barking">Barking:</label>
-                <input type="checkbox" id="barking" name="interests" value="Barking" th:field="${dogDto.interests}"/><br/>
+                <input type="checkbox" id="barking" name="skills" value="Barking" /><br/>
 
             </div>
             <div class="description">
                 <label for="description">About me: </label>
-                <input type="text" id="description" th:field="${dogDto.description}" />
+                <input type="text" id="description" th:field="${profileDto.dogDto.description}" />
             </div>
             <br>
             <div id="upload-container">
@@ -96,6 +120,45 @@
         fileInputContainer.appendChild(input);
         uploadContainer.appendChild(fileInputContainer);
     }
+
+    function showInputField() {
+        const race = document.getElementById("race");
+        const anotherrace = document.getElementById("anotherrace");
+        const anotherracelabel = document.getElementById("anotherracelabel");
+        if (race.value === "Other") {
+            anotherrace.style.display = "block";
+            anotherracelabel.style.display= "block";
+        } else {
+            anotherrace.style.display = "none";
+            anotherracelabel.style.display= "none";
+        }
+    }
+
+    function updateSelectOptions() {
+        const anotherrace = document.getElementById("anotherrace").value;
+        const other = document.getElementById("other");
+        other.value = anotherrace;
+    }
+
+    function raceFormOptions(){
+        showInputField();
+        updateSelectOptions();
+    }
+
+    function validateAge(){
+        const inputAge = document.getElementById("age");
+        if (inputAge < 0){
+            inputAge.value = 0;
+        }
+    }
+
+    function validateWeight(){
+        const inputWeight = document.getElementById("weight");
+        if (inputWeight < 0){
+            inputWeight.value = 0;
+        }
+    }
+
 </script>
 
 </body>

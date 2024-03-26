@@ -28,5 +28,8 @@ public class DogService {
         return dogRepository.findTopByOrderByIdDesc().getId();
     }
 
+    public void saveDog(Dog dog){
+        dogRepository.save(dog);
+    }
 
 }

@@ -12,11 +12,11 @@ import lombok.*;
 @NoArgsConstructor
 public class Skill {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "accountskill")
     private int account;
-    private String interest;
+    private String skill;
 
 
 }
